@@ -1,5 +1,6 @@
 import socket 
 
-ip = socket.gethostbyname('www.google.com')
+ip = socket.gethostbyname('localhost')
 print(ip)
 print(type(ip))
+print("abcdefg"[:-1])

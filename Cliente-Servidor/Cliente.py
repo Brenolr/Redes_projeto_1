@@ -4,26 +4,24 @@ import socket as s
 def main():
 
     MAX_LINE = 256
-    host='localhost'
+    host=''
     hp=""
-    buf=b''
-    Server_port = 7000
-    fp = open('menssagem_cliente.txt', 'r')
-        
-    '''
+    buf=b""
+    Server_port = 5432
+    
     #LEMBRETE: argc pode ser obtido pelo tamanho de argv 
     if(len(sys.argv)==2):
         host=sys.argv[1]
     else:
         raise RuntimeError("usage: simplex-talk host\n")
-    '''
-    print("Achou o Endereço")
+    
+    print("achou o Endereço")
 
     #Pega o endereço IP
     hp= s.gethostbyname(host)
     if(hp==""):
         raise RuntimeError("simplex-talk: unknown host:" + str(host)+ "\n" )
-    print("Achou o IP")
+    print("achou o IP")
 
     #cria o socket na configurações
     sin = s.socket(s.AF_INET,s.SOCK_STREAM)
@@ -32,17 +30,21 @@ def main():
     #faz a conexão
     try:
         sin.connect((hp, Server_port))
-        print("Conectado a " + str(hp) + " port: " + str(Server_port))
+        print("conectado")
     except:
          raise RuntimeError("simplex-talk: connect")
     
-    sin.sendall(buf) 
     #loop principal para receber e enviar mensagens
+    buf = sin.recv(MAX_LINE)
+    if(buf!=b""):
+        sin.sendall(buf)
+    print("Primeira Passagem pelo Loop")
 
-    buf = fp.read(MAX_LINE//8-1)
-    while(buf!=''):
-        sin.sendall(buf.encode(encoding="utf-8"))
-        buf = fp.read(MAX_LINE//8-1)
+    while(buf!=b""):
+        sin.recv(MAX_LINE)
+        buf[MAX_LINE-1]=b'0'
+        sin.sendall(buf)
+        print("No Loop")
 
 main()        
           
