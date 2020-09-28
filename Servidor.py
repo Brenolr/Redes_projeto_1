@@ -27,7 +27,7 @@ def main():
 
         while(data!=b''):
             data = new_s.recv(MAX_LINE)
-            print(data.decode(encoding='utf-8'))
+            #print(data.decode(encoding='utf-8'))
             fp.write(data.decode(encoding='utf-8'))
         fp.close()
         new_s.close
