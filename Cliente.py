@@ -4,7 +4,7 @@ import socket as s
 def main():
 
     MAX_LINE = 256
-    host='www.google.com'
+    host=''
     hp=""
     buf=b""
     Server_port = 5432
