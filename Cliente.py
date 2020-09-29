@@ -10,13 +10,13 @@ def main():
     Server_port = 7000
     fp = open('menssagem_cliente.txt', 'r')
         
-    '''
+    
     #LEMBRETE: argc pode ser obtido pelo tamanho de argv 
     if(len(sys.argv)==2):
         host=sys.argv[1]
     else:
         raise RuntimeError("usage: simplex-talk host\n")
-    '''
+    
     print("Achou o Endereço")
 
     #Pega o endereço IP
@@ -43,6 +43,6 @@ def main():
     while(buf!=''):
         sin.sendall(buf.encode(encoding="utf-8"))
         buf = fp.read(MAX_LINE//8-1)
-
+    print("mensagem enviada")
 main()        
           
